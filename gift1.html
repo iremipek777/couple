@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fff0f3;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden}
+.container{width:100%;max-width:1150px;display:flex;justify-content:space-between;align-items:center;padding:30px;gap:20px}
+.photo{width:320px;opacity:0;transform:translateX(-60px);transition:1s cubic-bezier(.68,-0.55,.27,1.55)}
+.photo.show{opacity:1;transform:translateX(0)}
+.photo img{width:100%;height:430px;object-fit:cover;border-radius:20px;border:8px solid white;box-shadow:0 15px 35px rgba(0,0,0,.2)}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.envelope{width:340px;height:220px;background:#ff8fab;position:relative;cursor:pointer;border-radius:0 0 16px 16px;box-shadow:0 20px 40px rgba(0,0,0,.2);z-index:1}
+.envelope::before{content:'';position:absolute;top:0;left:0;width:0;height:0;border-left:170px solid transparent;border-right:170px solid transparent;border-top:115px solid #ff4d6d;transform-origin:top;transition:.7s;z-index:5}
+.envelope.open::before{transform:rotateX(180deg);z-index:0}
+.paper{position:absolute;top:15px;left:15px;width:310px;background:#fffff8;border-radius:14px;padding:20px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.18);z-index:2;transform:translateY(20px);opacity:0;transition:1.1s cubic-bezier(.68,-0.55,.27,1.55)}
+.envelope.open .paper{transform:translateY(-170px);opacity:1;z-index:6}
+.paper h2{font-family:'Dancing Script',cursive;color:#d94f6f;font-size:19px;line-height:1.4}
+.hint{margin-top:28px;color:#d94f6f;font-weight:600;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+a{margin-top:18px;color:#d94f6f;text-decoration:none;font-weight:600;font-family:'Poppins',sans-serif}
+.flower-wrap{width:340px;height:430px;display:flex;justify-content:center;align-items:center;opacity:0;transform:translateX(60px);transition:1s}
+.flower-wrap.show{opacity:1;transform:translateX(0)}
+.flower{position:relative;width:200px;height:200px}
+.petal{position:absolute;width:80px;height:120px;background:radial-gradient(circle at 50% 20%, #fff0f5, #ff8fab);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;left:60px;top:40px;transform-origin:50% 100%;transform:scale(0);opacity:0}
+.bloom .petal{animation:bloomPetal 1.2s forwards}
+.bloom .petal:nth-child(1){animation-delay:.2s}.bloom .petal:nth-child(2){animation-delay:.5s}.bloom .petal:nth-child(3){animation-delay:.8s}.bloom .petal:nth-child(4){animation-delay:1.1s}.bloom .petal:nth-child(5){animation-delay:1.4s}
+@keyframes bloomPetal{0%{transform:rotate(var(--r)) scale(0);opacity:0}100%{transform:rotate(var(--r)) scale(1);opacity:1}}
+.center-dot{position:absolute;width:40px;height:40px;background:radial-gradient(circle, #ffd700, #ffae00);border-radius:50%;left:80px;top:90px;transform:scale(0)}
+.bloom .center-dot{animation:centerGrow .8s forwards;animation-delay:1.8s}
+@keyframes centerGrow{to{transform:scale(1)}}
+.glow{position:absolute;width:200px;height:200px;background:radial-gradient(circle, rgba(255,107,138,.4), transparent 70%);animation:glowPulse 1.5s infinite alternate;opacity:0}
+.bloom .glow{opacity:1}
+@keyframes glowPulse{0%{transform:scale(.9)}100%{transform:scale(1.3)}}
+@media(max-width:900px){.container{flex-direction:column}.photo{width:260px}.photo img{height:300px}}
+/* SADECE TELEFON İÇİN EKLENDİ - TASARIM BOZULMADI */
+@media(max-width:600px){
+body{overflow-y:auto;min-height:100dvh;padding:15px 0}
+.container{flex-direction:column;padding:15px;gap:12px}
+.photo{width:85vw;max-width:280px;transform:translateY(-30px)}
+.photo.show{transform:translateY(0)}
+.photo img{height:260px}
+.center{width:100%}
+.envelope{width:85vw;max-width:300px;height:190px}
+.envelope::before{border-left:42.5vw solid transparent;border-right:42.5vw solid transparent;border-top:95px solid #ff4d6d}
+.envelope.open::before{border-left:42.5vw solid transparent;border-right:42.5vw solid transparent}
+.paper{width:78vw;max-width:270px;left:50%;transform:translateX(-50%) translateY(20px)}
+.envelope.open .paper{transform:translateX(-50%) translateY(-150px)}
+.flower-wrap{width:100%;height:220px;transform:translateY(30px)}
+.flower-wrap.show{transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="photo" id="photo"><img src="assets/gift1.jpg.jpeg"></div>
+<div class="center">
+<div class="envelope" id="env"><div class="paper"><h2>Sen hayatıma girdikten sonra heryer çiçek açtı, tıpkı böyle</h2></div></div>
+<div class="hint" id="hint">Zarfa tıkla 💌</div>
+<a href="gifts.html">← Back</a>
+</div>
+<div class="flower-wrap" id="flowerWrap">
+<div class="flower" id="flower">
+<div class="glow"></div>
+<div class="petal" style="--r:0deg"></div>
+<div class="petal" style="--r:72deg"></div>
+<div class="petal" style="--r:144deg"></div>
+<div class="petal" style="--r:216deg"></div>
+<div class="petal" style="--r:288deg"></div>
+<div class="center-dot"></div>
+</div>
+</div>
+</div>
+<script>
+const env=document.getElementById('env'), photo=document.getElementById('photo'), flowerWrap=document.getElementById('flowerWrap'), flower=document.getElementById('flower'), hint=document.getElementById('hint');
+let opened=false;
+env.addEventListener('click',()=>{
+if(!opened){
+env.classList.add('open');
+photo.classList.add('show');
+flowerWrap.classList.add('show');
+setTimeout(()=>{
+flower.classList.add('bloom');
+hint.style.display='none';
+},400);
+opened=true;
+}
+});
+</script>
+</body>
+</html>

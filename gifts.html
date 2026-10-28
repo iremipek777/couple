@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Our Gifts</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#fff0f3;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column;font-family:'Poppins',sans-serif}
+h1{font-family:'Dancing Script',cursive;color:#d94f6f;font-size:38px;margin-bottom:30px} .grid{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;padding:20px}
+.gift{width:190px;cursor:pointer;transition:.3s;text-align:center}.gift:hover{transform:translateY(-10px) scale(1.05)}
+.box{width:190px;height:190px;background:white;border:4px solid #ffb6c1;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;box-shadow:0 12px 25px rgba(255,182,193,.5)}
+.ribbon{position:absolute;top:15px;font-size:32px}.gift p{margin-top:12px;color:#d94f6f;font-weight:600;font-size:18px}
+</style></head><body>
+<h1>Pick a gift for you 💖</h1>
+<div class="grid">
+<div class="gift" onclick="location.href='gift1.html'"><div class="box"><span class="ribbon">🎀</span>🎁</div><p>Gift 1</p></div>
+<div class="gift" onclick="location.href='gift2.html'"><div class="box"><span class="ribbon">🎀</span>🎁</div><p>Gift 2</p></div>
+<div class="gift" onclick="location.href='gift3.html'"><div class="box"><span class="ribbon">🎀</span>🎁</div><p>Gift 3</p></div>
+</div>
+</body></html>

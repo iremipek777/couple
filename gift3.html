@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fff5f5;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;position:relative}
+.bg-hearts{position:fixed;inset:0;pointer-events:none;z-index:1}
+.float-heart{position:absolute;bottom:-20px;animation:floatUp linear forwards}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:1}100%{transform:translateY(-110vh) translateX(var(--x));opacity:0}}
+
+.center{position:relative;z-index:5;width:100%;max-width:520px;padding:20px;display:flex;flex-direction:column;align-items:center}
+.card{background:white;border-radius:28px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.15);border:2px solid #ffd6de;text-align:center;min-width:420px;min-height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.6s}
+.card img{width:100%;max-width:380px;height:380px;object-fit:cover;border-radius:20px;display:none}
+.card img.show{display:block;animation:pop .6s cubic-bezier(.68,-0.55,.27,1.55)}
+.card p{margin-top:14px;font-size:13.5px;color:#666;line-height:1.5;display:none}
+.card p.show{display:block}
+.card .placeholder{font-size:20px;color:#d94f6f;font-weight:600}
+.card .hint{font-size:14px;color:#999;margin-top:8px}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+
+.mini-gift{position:fixed;width:54px;height:44px;cursor:pointer;z-index:10;transition:.3s;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2))}
+.mini-gift:hover{transform:scale(1.15) rotate(-3deg)}
+.mini-gift .m-box{width:100%;height:34px;background:linear-gradient(180deg,#ff8fab,#ff4d6d);border-radius:0 0 7px 7px;position:absolute;bottom:0}
+.mini-gift .m-lid{width:60px;height:18px;background:linear-gradient(180deg,#ffeb3b,#ffb300);border-radius:5px;position:absolute;top:0;left:-3px;transition:.5s;transform-origin:top}
+.mini-gift.open .m-lid{transform:rotateX(-130deg)}
+.mini-gift .m-bow{position:absolute;top:-7px;left:16px;font-size:20px}
+.mini-gift.found{pointer-events:none;opacity:.5}
+
+.mini-gift.g1{top:12%;left:6%} .mini-gift.g2{top:18%;right:7%} .mini-gift.g3{top:52%;left:3%} .mini-gift.g4{top:60%;right:4%}
+.mini-gift.g5{bottom:12%;left:8%} .mini-gift.g6{bottom:15%;right:9%} .mini-gift.g7{top:5%;left:45%} .mini-gift.g8{bottom:6%;right:45%}
+
+/* boklu notu */
+.boklu-note{position:fixed;bottom:20px;left:20px;background:#fffbe6;padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.3);transform:rotate(-2deg);border-left:5px solid #ff4d6d;display:none;z-index:15}
+.boklu-note.show{display:block;animation:pop .5s}
+
+/* SADECE TELEFON İÇİN EKLENDİ - TASARIM AYNI */
+@media(max-width:600px){
+body{overflow-y:auto;min-height:100dvh}
+.center{padding:12px;width:100%}
+.card{min-width:0; width:88vw; max-width:340px; min-height:420px; padding:14px}
+.card img{max-width:100%; height:auto; aspect-ratio:1/1}
+.mini-gift{width:44px;height:36px}
+.mini-gift .m-lid{width:50px;height:15px;left:-3px}
+.mini-gift .m-bow{font-size:16px;left:13px}
+.mini-gift.g1{top:8%;left:4%} .mini-gift.g2{top:8%;right:4%}
+.mini-gift.g3{top:42%;left:2%} .mini-gift.g4{top:42%;right:2%}
+.mini-gift.g5{bottom:8%;left:4%} .mini-gift.g6{bottom:8%;right:4%}
+.mini-gift.g7{top:2%;left:50%;transform:translateX(-50%)}
+.mini-gift.g8{bottom:2%;left:50%;transform:translateX(-50%)}
+.mini-gift.g7:hover{transform:translateX(-50%) scale(1.15)}
+.mini-gift.g8:hover{transform:translateX(-50%) scale(1.15)}
+.boklu-note{bottom:70px;left:50%;transform:translateX(-50%) rotate(-2deg);white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<div class="bg-hearts" id="bgHearts"></div>
+
+<div class="boklu-note" id="boklu">boklu :) <span style="margin-left:6px">💩</span></div>
+
+<!-- 8 KUTU -->
+<div class="mini-gift g1" data-type="heart"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g2" data-type="photo"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g3" data-type="boklu"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g4" data-type="heart"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g5" data-type="text"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g6" data-type="heart"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g7" data-type="heart"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+<div class="mini-gift g8" data-type="heart"><div class="m-lid"><div class="m-bow">🎀</div></div><div class="m-box"></div></div>
+
+<div class="center">
+<div class="card" id="card">
+<div class="placeholder" id="placeholder">Hediyelerini bul 🎁<br><span class="hint">Kenardaki kutulara tıkla</span></div>
+<img id="mainImg" src="assets/gift3.jpg.jpeg">
+<p id="mainText">Beni anladığın için teşekkür ederim sevgilim, takıntılı severim demiştim sana, ve seni seviyorum:)</p>
+<a href="gifts.html" id="backBtn" style="display:none;margin-top:10px;color:#d94f6f;text-decoration:none;font-weight:600">← Back</a>
+</div>
+</div>
+
+<script>
+// kalp yağmuru
+const bg=document.getElementById('bgHearts');
+function spawnHeart(){const e=document.createElement('div');e.className='float-heart';e.innerText=['❤️','💖','💗'][Math.floor(Math.random()*3)];e.style.left=Math.random()*100+'vw';e.style.fontSize=(Math.random()*12+14)+'px';e.style.setProperty('--x',(Math.random()-0.5)*80+'px');e.style.animationDuration=(Math.random()*2+4)+'s';bg.appendChild(e);setTimeout(()=>e.remove(),6000);}
+setInterval(spawnHeart,200);
+
+const img=document.getElementById('mainImg'), txt=document.getElementById('mainText'), placeholder=document.getElementById('placeholder'), back=document.getElementById('backBtn'), boklu=document.getElementById('boklu');
+let foundPhoto=false, foundText=false;
+
+function checkComplete(){
+if(foundPhoto && foundText){placeholder.style.display='none';back.style.display='inline-block';}
+}
+
+document.querySelectorAll('.mini-gift').forEach(box=>{
+box.addEventListener('click',()=>{
+if(box.classList.contains('found'))return;
+box.classList.add('open','found');
+const type=box.dataset.type;
+const rect=box.getBoundingClientRect();
+
+if(type==='photo'){
+setTimeout(()=>{
+foundPhoto=true; img.classList.add('show'); placeholder.innerHTML='Yazı kaldı, bulmaya devam et! 💌'; checkComplete();
+if(foundText) placeholder.style.display='none';
+},400);
+}
+else if(type==='text'){
+setTimeout(()=>{
+foundText=true; txt.classList.add('show'); 
+if(!foundPhoto) placeholder.innerHTML='Foto kaldı, bulmaya devam et! 🖼️';
+else placeholder.style.display='none';
+checkComplete();
+},400);
+}
+else if(type==='boklu'){
+setTimeout(()=>{boklu.classList.add('show');},300);
+burstHearts(rect,6);
+}
+else{
+burstHearts(rect,12);
+}
+});
+});
+
+function burstHearts(rect,count){
+for(let i=0;i<count;i++){
+setTimeout(()=>{
+const h=document.createElement('div');
+h.innerText=['❤️','💖','💗','💘'][Math.floor(Math.random()*4)];
+h.style.position='fixed';h.style.left=rect.left+10+'px';h.style.top=rect.top+'px';
+h.style.fontSize=(Math.random()*8+18)+'px';h.style.pointerEvents='none';h.style.zIndex=20;
+h.style.transition='all 1s ease-out';document.body.appendChild(h);
+requestAnimationFrame(()=>{h.style.transform=`translate(${(Math.random()-0.5)*200}px, -${Math.random()*200+60}px) scale(0)`;h.style.opacity='0';});
+setTimeout(()=>h.remove(),1000);
+},i*50);
+}
+}
+
+// kutuların yerini her seferinde karıştır
+const types=['photo','text','boklu','heart','heart','heart','heart','heart'];
+document.querySelectorAll('.mini-gift').forEach(b=>{b.dataset.type=types.splice(Math.floor(Math.random()*types.length),1)[0]});
+</script>
+</body>
+</html>
