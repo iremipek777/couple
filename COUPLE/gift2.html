@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a18;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:'Poppins',sans-serif}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.container{width:100%;max-width:1300px;display:flex;justify-content:space-between;align-items:center;padding:20px;z-index:2}
+.side{width:300px;opacity:0;transition:1s}
+.side.left{transform:translateX(-60px)} .side.right{transform:translateX(60px)}
+.side.show{opacity:1;transform:translateX(0)}
+.note{background:#fffbe6;padding:18px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.5)}
+.side.left .note{border-left:6px solid #d32f2f;transform:rotate(-2deg)}
+.side.right .note{border-left:6px solid #0d47a1;background:#e3f2fd;transform:rotate(2deg)}
+.note p{font-size:14px;line-height:1.5;color:#222}
+.center{flex:1;display:flex;flex-direction:column;align-items:center}
+.gift-box{width:220px;height:170px;position:relative;cursor:pointer}
+.box-bottom{width:220px;height:145px;background:#d32f2f;position:absolute;bottom:0;border-radius:0 0 14px 14px;box-shadow:0 15px 35px rgba(0,0,0,.5);z-index:1}
+.box-lid{width:240px;height:55px;background:linear-gradient(180deg,#ffeb3b,#ffb300);position:absolute;top:0;left:-10px;border-radius:10px;transition:.8s cubic-bezier(.68,-0.55,.27,1.55);z-index:3;transform-origin:top}
+.gift-box.open .box-lid{transform:rotateX(-120deg) translateY(-15px)}
+.ribbon-v{position:absolute;width:24px;height:100%;background:#ffeb3b;left:98px;top:0}
+.bow{position:absolute;top:-20px;left:78px;font-size:44px;z-index:4}
+.photo-card{position:absolute;top:10px;left:20px;width:180px;background:white;padding:8px;border-radius:12px;box-shadow:0 15px 35px rgba(0,0,0,.5);transform:translateY(40px);opacity:0;transition:1s;z-index:0}
+.gift-box.open .photo-card{transform:translateY(-235px);opacity:1;z-index:5}
+.photo-card img{width:100%;height:190px;object-fit:cover;border-radius:8px}
+.hint{margin-top:24px;color:#ffeb3b;font-weight:600;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+a{margin-top:14px;color:#ffeb3b;text-decoration:none}
+/* SADECE TELEFON İÇİN EKLENDİ - TASARIM AYNI */
+@media(max-width:900px){
+.container{flex-direction:column;gap:22px}
+.side{width:90vw;max-width:320px}
+.side.left{order:2;transform:translateY(30px)}
+.side.right{order:3;transform:translateY(30px)}
+.side.show{transform:translateY(0)}
+.center{order:1;width:100%}
+}
+@media(max-width:600px){
+body{overflow-y:auto;min-height:100dvh;padding:15px 0}
+.container{padding:15px;gap:18px}
+.gift-box{width:190px;height:150px}
+.box-bottom{width:190px;height:125px}
+.box-lid{width:210px;left:-10px}
+.ribbon-v{left:83px}
+.bow{left:68px;font-size:38px}
+.photo-card{width:170px;left:10px}
+.gift-box.open .photo-card{transform:translateY(-210px)}
+.note p{font-size:13px}
+}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="container">
+<!-- SOL -->
+<div class="side left" id="leftNote"><div class="note"><p>Osimhen'in ofsayta bağlılığı gibi bağlıyım sana :)</p></div></div>
+<div class="center">
+<div class="gift-box" id="box">
+<div class="photo-card"><img src="assets/gift2.jpg.jpeg"></div>
+<div class="box-lid"><div class="bow">🎀</div></div>
+<div class="box-bottom"><div class="ribbon-v"></div></div>
+</div>
+<div class="hint" id="hint">Kutuya tıkla 🎁</div>
+<a href="gifts.html">← Back</a>
+</div>
+<!-- SAĞ - SENİN ÇİZDİĞİN YERE GİTTİ -->
+<div class="side right" id="rightNote"><div class="note"><p>Derbide rakip, hayatta hep aynı takımdayız</p></div></div>
+</div>
+<script>
+const box=document.getElementById('box'), leftNote=document.getElementById('leftNote'), rightNote=document.getElementById('rightNote'), hint=document.getElementById('hint');
+let opened=false;
+box.addEventListener('click',()=>{
+if(!opened){
+box.classList.add('open');
+leftNote.classList.add('show');
+setTimeout(()=>rightNote.classList.add('show'),500);
+hint.style.display='none';
+opened=true;
+for(let i=0;i<6;i++)setTimeout(()=>fireworks.push(new Firework()),i*200);
+}
+});
+const canvas=document.getElementById('c'), ctx=canvas.getContext('2d');
+canvas.width=innerWidth; canvas.height=innerHeight;
+let fireworks=[], particles=[];
+class Firework{
+constructor(){
+this.x=Math.random()*canvas.width*0.7+canvas.width*0.15;
+this.y=canvas.height;
+this.targetY=Math.random()*canvas.height*0.35+canvas.height*0.1;
+this.speed=Math.random()*2+6;
+this.colors=Math.random()>0.5?['#ff0000','#ffeb3b']:['#ffeb3b','#0d47a1'];
+this.trail=[];
+}
+update(){
+this.trail.push({x:this.x,y:this.y});
+if(this.trail.length>10)this.trail.shift();
+this.y-=this.speed;
+if(this.y<=this.targetY){this.explode();return false}
+return true;
+}
+draw(){
+this.trail.forEach((t,i)=>{ctx.globalAlpha=i/10;ctx.fillStyle=this.colors[0];ctx.fillRect(t.x,t.y,3,4)});
+ctx.globalAlpha=1;ctx.fillStyle='white';ctx.fillRect(this.x,this.y,3,14);
+}
+explode(){
+for(let i=0;i<90;i++){
+particles.push({x:this.x,y:this.y,vx:(Math.random()-0.5)*12,vy:(Math.random()-0.5)*12,life:110,color:this.colors[Math.floor(Math.random()*2)],size:Math.random()*3+1.5})
+}
+}
+}
+function loop(){
+ctx.fillStyle='rgba(10,10,24,0.25)';ctx.fillRect(0,0,canvas.width,canvas.height);
+fireworks=fireworks.filter(f=>{let a=f.update();if(a)f.draw();return a});
+particles=particles.filter(p=>{p.x+=p.vx;p.vy+=0.09;p.y+=p.vy;p.life--;p.vx*=0.99;ctx.globalAlpha=p.life/100;ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();return p.life>0});
+ctx.globalAlpha=1;requestAnimationFrame(loop);
+}
+loop();
+setInterval(()=>{if(opened)fireworks.push(new Firework())},800);
+window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight});
+</script>
+</body>
+</html>
